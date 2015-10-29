@@ -5,6 +5,10 @@ RSpec.describe Person, type: :model do
     Person.new(first_name: 'Alice', last_name: 'Smith')
   end
 
+  it 'is valid' do
+    expect(person).to be_valid
+  end
+
   it 'is invalid without a first name' do
     person.first_name = nil
     expect(person).to_not be_valid
