@@ -66,7 +66,6 @@ describe 'the email view', type: :feature do
 
   before(:each) do
     person.email_addresses.create(address: "hi@gmail.com")
-    person.phone_numbers.create(number: "second@gmail.com")
     visit person_path(person)
   end
 
@@ -89,6 +88,36 @@ describe 'the email view', type: :feature do
     page.click_button('Create Email address')
     expect(current_path).to eq(person_path(person))
     expect(page).to have_content('newemail@gmail.com')
+  end
+
+  it 'has links to edit email addresses' do
+    person.email_addresses.each do |email|
+      expect(page).to have_link('edit', href: edit_email_address_path(email))
+    end
+  end
+
+  it 'edits a email address' do
+    email = person.email_addresses.first
+    old_email = email.address
+
+    first(:link, 'edit').click
+    page.fill_in('Address', with: 'tom@gmail.com')
+    page.click_button('Update Email address')
+    expect(current_path).to eq(person_path(person))
+    expect(page).to have_content('tom@gmail.com')
+    expect(page).to_not have_content(old_email)
+  end
+
+  it 'has links to delete email addresses' do
+    person.email_addresses.each do |email|
+      expect(page).to have_link('delete', href: email_address_path(email))
+    end
+  end
+
+  it 'deletes an email address' do
+    expect(page).to have_content('hi@gmail.com')
+    first(:link, 'delete').click
+    expect(page).to_not have_content('hi@gmail.com')
   end
 
 end
