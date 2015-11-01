@@ -6,7 +6,7 @@ RSpec.describe EmailAddressesController, type: :controller do
   # EmailAddress. As you add validations to EmailAddress, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    { address: "MyEmail", person_id: 1 }
+    { address: "MyEmail", person_id: 1}
   }
 
   let(:invalid_attributes) {
@@ -51,6 +51,10 @@ RSpec.describe EmailAddressesController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
+
+      let(:alice) { Person.create(first_name: 'Alice', last_name: 'Smith') }
+      let(:valid_attributes) { {address: '555-1234', person_id: alice.id} }
+
       it "creates a new EmailAddress" do
         expect {
           post :create, {:email_address => valid_attributes}, valid_session
@@ -63,9 +67,9 @@ RSpec.describe EmailAddressesController, type: :controller do
         expect(assigns(:email_address)).to be_persisted
       end
 
-      it "redirects to the created email_address" do
+      it "redirects to the person's page" do
         post :create, {:email_address => valid_attributes}, valid_session
-        expect(response).to redirect_to(EmailAddress.last)
+        expect(response).to redirect_to(Person.last)
       end
     end
 
@@ -84,10 +88,9 @@ RSpec.describe EmailAddressesController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:valid_attributes) {
-        { address: "MyEmail", person_id: 1 }}
-      let(:new_attributes) { {address: 'MyNewString2', person_id: 1} }
-
+      let(:new_attributes) {
+        skip("Add a hash of attributes valid for your model")
+      }
 
       it "updates the requested email_address" do
         email_address = EmailAddress.create! valid_attributes
