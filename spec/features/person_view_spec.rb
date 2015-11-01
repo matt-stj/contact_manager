@@ -83,10 +83,10 @@ describe 'the email view', type: :feature do
     expect(current_path).to eq(new_email_address_path)
   end
 
-  xit 'adds a new email address' do
+  it 'adds a new email address' do
     page.click_link('Add email address')
     page.fill_in('Address', with: 'newemail@gmail.com')
-    page.click_button('Create Email Address')
+    page.click_button('Create Email address')
     expect(current_path).to eq(person_path(person))
     expect(page).to have_content('newemail@gmail.com')
   end
