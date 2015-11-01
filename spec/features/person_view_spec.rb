@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'the person view', type: :feature do
+describe 'the phone number view', type: :feature do
 
   let(:person) { Person.create(first_name: 'John', last_name: 'Doe') }
 
@@ -57,5 +57,23 @@ describe 'the person view', type: :feature do
     first(:link, 'delete').click
     expect(page).to_not have_content('555-1234')
   end
+
+end
+
+describe 'the email view', type: :feature do
+
+  let(:person) { Person.create(first_name: 'John', last_name: 'Doe') }
+
+  before(:each) do
+    person.email_addresses.create(address: "hi@gmail.com")
+    person.phone_numbers.create(number: "second@gmail.com")
+    visit person_path(person)
+  end
+
+  it 'shows the email addresses' do
+    expect(page).to have_selector('li', text: 'hi@gmail.com')
+  end
+
+
 
 end
