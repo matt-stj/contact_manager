@@ -51,6 +51,10 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
+
+      let(:turing) { Company.create(name: 'Turing') }
+      let(:valid_attributes) { {name: 'turing' } }
+
       it "creates a new Company" do
         expect {
           post :create, {:company => valid_attributes}, valid_session
