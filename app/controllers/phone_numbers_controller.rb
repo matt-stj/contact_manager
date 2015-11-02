@@ -14,7 +14,7 @@ class PhoneNumbersController < ApplicationController
 
   # GET /phone_numbers/new
   def new
-    @phone_number = PhoneNumber.new(contact_id: params[:contact_id])
+    @phone_number = PhoneNumber.new(contact_id: params[:contact_id], contact_type: params[:contact_type])
   end
 
   # GET /phone_numbers/1/edit
