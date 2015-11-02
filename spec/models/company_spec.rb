@@ -12,4 +12,8 @@ RSpec.describe Company, type: :model do
     expect(company).to_not be_valid
   end
 
+  it 'has an array of phone numbers' do
+    expect(company.phone_numbers).to eq([])
+  end
+
 end
